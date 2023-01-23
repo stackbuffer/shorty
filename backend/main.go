@@ -4,11 +4,17 @@ import (
 	"fmt"
 	"net/http"
 	"crypto/sha1"
+	"encoding/json"
 	"github.com/go-redis/redis"
 )
 
+type Response struct {
+	Url string `json:"url"`
+}
 
 func connectToRedis() *redis.Client {
+
+	//notice the "s" after redis, I don't know why this fixed the connection issue :|
 	opt, _ := redis.ParseURL("rediss://default:514168316552439f89740797dfc30d33@eu2-firm-cow-31460.upstash.io:31460")
 	client := redis.NewClient(opt)
 
@@ -39,7 +45,11 @@ func shorty(w http.ResponseWriter, r *http.Request){
 
 	client.Set(finalHash_6, urlToShorten, 0)
 
-	fmt.Fprintf(w, finalHash_6)
+	resp := Response{Url : fmt.Sprintf("localhost:8080/%v", finalHash_6)}
+
+	json.NewEncoder(w).Encode(resp)
+	
+	//fmt.Fprintf(w, resp)
 }
 
 
