@@ -38,7 +38,7 @@ function App() {
             <input 
                 style={{height:"35px",  borderRadius:"3px", background:"#4CAF50", fontWeight:"bold", color:"#ffffff"}} 
                 type="button" 
-                value="Shorten"
+                value="Shorty"
                 onClick={()=>{
                     shortenURL()
                 }} 
@@ -55,7 +55,7 @@ function App() {
 
             <br/>
 
-            <p>Shorty link: <a href={shorty}>{shorty}</a></p>
+            <p>Shorty link: <a href={shorty} target="_blank" rel="noopener noreferrer">{shorty}</a></p>
 
         </div>
     );

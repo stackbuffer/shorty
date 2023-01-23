@@ -48,8 +48,6 @@ func shorty(w http.ResponseWriter, r *http.Request){
 	resp := Response{Url : fmt.Sprintf("localhost:8080/%v", finalHash_6)}
 
 	json.NewEncoder(w).Encode(resp)
-	
-	//fmt.Fprintf(w, resp)
 }
 
 
@@ -63,6 +61,7 @@ func goToShortyURL(w http.ResponseWriter, r *http.Request){
 
 
 	if url != "" {
+		//send a 303 see other header to redirect the user
 		http.Redirect(w, r, url, http.StatusSeeOther)
 	} else {
 		url = "Not found"
